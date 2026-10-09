@@ -42,13 +42,14 @@ const settle=page=>page.waitForFunction(()=>window.datacenter?.isSettled(),null,
    assert.ok(copy.y>=0&&copy.y+copy.height<=size.height+1,`stop ${stop}: copy fits the viewport at ${size.width}`);
    if(size.width===1440||stop===3){await settle(page);await page.screenshot({path:`${out}/tour-${stop}-${size.width}.png`});}
   }
-  // The header keeps a visible link to the reader at every width.
+  // The header's only link goes to the chapter directory, at every width.
   await page.keyboard.press('1');await stopIs(page,1);
-  const read=page.locator('.site-header nav a[href$="read.html"]');
-  assert.equal(await read.isVisible(),true,`Reader link hidden at ${size.width}`);
-  assert.match((await read.innerText()).trim(),size.width<=760?/^Read\b/:/^Reading & glossary/);
-  const box=await read.boundingBox();
-  assert.ok(box.x+box.width<=size.width+1,`Reader link leaves the header at ${size.width}`);
+  const nav=page.locator('.site-header nav a');
+  assert.equal(await nav.count(),1);
+  assert.equal(await nav.getAttribute('href'),'#chapters');
+  assert.equal(await nav.isVisible(),true,`Chapters link hidden at ${size.width}`);
+  const box=await nav.boundingBox();
+  assert.ok(box.x+box.width<=size.width+1,`Chapters link leaves the header at ${size.width}`);
  }
  // Follow the power, open its equipment guide, and open a piece of equipment.
  await page.setViewportSize({width:1440,height:1000});
@@ -64,8 +65,30 @@ const settle=page=>page.waitForFunction(()=>window.datacenter?.isSettled(),null,
  // The course directory follows the tour, and the tour's controls step aside for it.
  await page.locator('.site-header nav a[href="#chapters"]').click();
  await page.waitForFunction(()=>document.body.classList.contains('past-journey'));
- await page.locator('#chapters h2').waitFor();
+ await page.locator('#chapters .chapter-link').first().waitFor();
  await page.screenshot({path:`${out}/directory-1440.png`});
+ // Phones, portrait and landscape: the tour menu, a tapped label opening the equipment sheet, and the directory.
+ for(const size of [{width:390,height:844},{width:844,height:390}]){
+  const phone=await browser.newContext({viewport:size,reducedMotion:'reduce',isMobile:true,hasTouch:true});
+  const mobile=await phone.newPage();mobile.on('pageerror',e=>errors.push(`${size.width}: ${e.message}`));
+  await mobile.goto(base);await mobile.waitForFunction(()=>document.body.dataset.world==='ready');
+  assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,`page fits ${size.width}`);
+  await mobile.locator('#menu-toggle').tap();await mobile.locator('#chapter-nav.open').waitFor();
+  await mobile.locator('#chapter-nav [data-chapter="2"]').tap();await stopIs(mobile,3);await settle(mobile);
+  const copy=await mobile.locator('#chapter-copy').boundingBox();
+  assert.ok(copy.y>=0&&copy.y+copy.height<=size.height+1,`copy fits the phone at ${size.width}`);
+  await mobile.screenshot({path:`${out}/phone-compute-${size.width}.png`});
+  const label=mobile.locator('#hotspots .hotspot:not([hidden])').first();await label.waitFor();
+  await label.tap();await mobile.locator('#equipment-dialog[open]').waitFor();await settle(mobile);
+  const sheet=await mobile.locator('#equipment-dialog').boundingBox();
+  if(size.width<size.height)assert.ok(sheet.y>size.height*0.4,`the equipment sheet leaves the model visible: ${JSON.stringify(sheet)}`);
+  await mobile.screenshot({path:`${out}/phone-equipment-${size.width}.png`});
+  await mobile.locator('#equipment-dialog .close-dialog').tap();
+  await mobile.locator('.site-header nav a').tap();await mobile.waitForFunction(()=>document.body.classList.contains('past-journey'));
+  await mobile.locator('#chapters .chapter-link').first().waitFor();
+  await mobile.screenshot({path:`${out}/phone-directory-${size.width}.png`});
+  await phone.close();
+ }
  // All chapters keep their current scene-aware reading links and return home.
  await page.setViewportSize({width:1280,height:720});
  for(const href of chapterLinks){

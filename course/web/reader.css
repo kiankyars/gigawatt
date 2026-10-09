@@ -134,15 +134,6 @@ button[hidden],
   line-height: 1;
   color: var(--teal);
 }
-.brand small {
-  font-size: 9px;
-  letter-spacing: 1.7px;
-  font-weight: 600;
-  padding-left: 18px;
-  margin-left: 8px;
-  border-left: 1px solid var(--rule);
-  color: var(--muted);
-}
 .mast nav {
   display: flex;
   align-items: center;
@@ -874,9 +865,6 @@ h1 {
   }
   .mast {
     padding: 0 25px;
-  }
-  .brand small {
-    display: none;
   }
   .consequences {
     gap: 22px;

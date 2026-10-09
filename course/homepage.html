@@ -26,15 +26,11 @@
   <div class="vignette" aria-hidden="true"></div>
   <header class="identity site-header">
     <a class="brand" href="homepage.html"><span aria-hidden="true">ϟ</span> From Watts to Tokens</a>
-    <nav aria-label="Main navigation"><a href="#chapters">Chapters</a><a href="index.html"><span class="nav-full">Reading &amp; glossary</span><span class="nav-short">Read</span> <span aria-hidden="true">↗</span></a></nav>
+    <nav aria-label="Main navigation"><a href="#chapters">Chapters</a></nav>
   </header>
   <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="chapter-nav" data-needs-script hidden>Tour <span aria-hidden="true">+</span></button>
   <nav id="chapter-nav" aria-label="Tour stops"></nav>
   <div class="utility" data-needs-script hidden>
-    <div class="rotate" role="group" aria-label="Rotate the view">
-      <button id="rotate-left" type="button" aria-label="Rotate left" title="Rotate left">↺</button>
-      <button id="rotate-right" type="button" aria-label="Rotate right" title="Rotate right">↻</button>
-    </div>
     <button id="reset-camera" type="button">Reset view</button>
     <button id="motion-button" type="button">Pause motion</button>
     <button id="about-button" type="button">About</button>
@@ -45,9 +41,8 @@
       <div id="chapter-copy"></div>
       <p id="flow-caption" class="flow-caption" aria-hidden="true"></p>
     </div>
-    <section id="chapters" class="course" aria-labelledby="chapters-title">
+    <section id="chapters" class="course" aria-label="Course chapters">
       <div class="course-inner">
-        <div class="section-heading"><div><p class="course-eyebrow">From the grid to the GPU</p><h2 id="chapters-title">The course</h2></div><p id="chapter-count"></p></div>
         <div id="chapter-list" class="chapter-list"><p><a href="index.html">Open the complete course directory →</a></p></div>
       </div>
     </section>
@@ -61,7 +56,6 @@
   </div>
   <div class="progress-line" aria-hidden="true"><i id="progress-fill"></i></div>
   <p id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>
-  <footer class="site-footer"><span>From Watts to Tokens</span><a href="index.html">Readings, worked examples &amp; glossary <span aria-hidden="true">↗</span></a></footer>
   <dialog id="equipment-dialog" aria-labelledby="equipment-title">
     <button class="close-dialog" type="button" aria-label="Close equipment detail">×</button>
     <div id="equipment-content"></div>
@@ -69,8 +63,8 @@
   <dialog id="about-dialog" aria-labelledby="about-title">
     <button class="close-dialog" type="button" aria-label="Close about">×</button>
     <h2 id="about-title">The data center tour</h2>
-    <p>Scroll through six stops and select any equipment for a closer look; each stop links to the course chapters that go deeper. Drag, or use ↺ ↻, to turn the simplified model.</p>
-    <p>Also published on its own at <a href="https://kiankyars.github.io/datacenter/">kiankyars.github.io/datacenter</a>. Voxel style after <a href="https://y-n10.com" target="_blank" rel="noreferrer">Yamauchi No.10<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
+    <p>Scroll through six stops and select any equipment for a closer look; each stop links to the course chapters that go deeper. Drag to turn the simplified model.</p>
+    <p>Voxel style after <a href="https://y-n10.com" target="_blank" rel="noreferrer">Yamauchi No.10<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
     <div id="source-list"></div>
   </dialog>
   <noscript><p class="no-script">Open the <a href="prototypes/terminology-format.html?teach=1">primer</a> or <a href="index.html">course reader</a>. Enable JavaScript to tour the 3D data center.</p></noscript>

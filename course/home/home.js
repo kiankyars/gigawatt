@@ -25,8 +25,7 @@ async function chapters(){
    const arrow=document.createElement('span');arrow.className='chapter-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
    link.append(number,title,arrow);list.append(link);
   }
-  document.getElementById('chapter-count').textContent=`${entries.filter(e=>/^\d/.test(e.label)).length} chapters`;
- }catch{document.getElementById('chapter-count').textContent='Course directory';}
+ }catch{/* The static link to the course reader stays in place. */}
 }
 chapters();
 

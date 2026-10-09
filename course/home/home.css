@@ -8,23 +8,20 @@
 .site-header nav{display:flex;gap:20px;font-size:13px;font-weight:600}
 .site-header nav a{color:#d5d9d2;text-decoration:none;text-shadow:var(--halo)}
 .site-header nav a:hover,.site-header .brand:hover{color:var(--accent)}
-.site-header .nav-short{display:none}
-@media(max-width:760px){.site-header .nav-full{display:none}.site-header .nav-short{display:inline}.site-header .brand{font-size:17px}.site-header .brand>span{font-size:26px}.site-header nav{gap:16px;font-size:12px}}
+@media(max-width:760px){.site-header .brand{font-size:17px}.site-header .brand>span{font-size:26px}.site-header nav{gap:16px;font-size:12px}}
+/* On narrow phones the stop counter gives way to the course name; the progress bar still shows position. */
+@media(max-width:420px){.tour-controls>span{display:none}}
 /* The tour's side list starts below the taller course header. */
 @media(min-width:701px) and (min-height:561px){#chapter-nav{top:54%}}
 /* In short windows the tour menu button sits clear of the course name. */
 @media(max-height:560px) and (orientation:landscape){#menu-toggle{left:auto;right:190px;top:20px}.site-header{gap:6px}.site-header .brand{font-size:16px}.site-header .brand>span{font-size:22px}}
 
 /* ── Course directory (light) ─────────────────────────────────────────────── */
-.course,.site-footer{--paper:#fafaf7;--ink:#20352f;--muted:#69726a;--rule:#dce0d6;--green:#2d6250;position:relative;z-index:11;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+.course{--paper:#fafaf7;--ink:#20352f;--muted:#69726a;--rule:#dce0d6;--green:#2d6250;position:relative;z-index:11;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
 .course{scroll-snap-align:start;box-shadow:0 -24px 48px #08080880}
-.course a,.site-footer a{color:inherit;text-decoration:none}
-.course :is(a,button):focus-visible,.site-footer a:focus-visible{outline:3px solid #258cac;outline-offset:5px;box-shadow:none}
+.course a{color:inherit;text-decoration:none}
+.course :is(a,button):focus-visible{outline:3px solid #258cac;outline-offset:5px;box-shadow:none}
 .course-inner{max-width:1600px;margin:auto;padding:80px 4.2vw 85px}
-.course-eyebrow{font-size:11px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
-.section-heading{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:32px}
-.section-heading h2{font-size:39px;line-height:1.1;font-weight:560;letter-spacing:-1.4px;margin:0}
-.section-heading>p{margin:0;font-size:13px;color:var(--muted)}
 .chapter-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px}
 .chapter-link{border-top:1px solid var(--rule);display:grid;grid-template-columns:28px 1fr 20px;gap:13px;align-items:start;padding:22px 0;min-height:88px}
 .chapter-number{color:var(--muted);font-size:11px;line-height:1.9;font-variant-numeric:tabular-nums}
@@ -32,12 +29,10 @@
 .chapter-arrow{font-size:16px;opacity:0;transition:opacity .16s,transform .16s}
 .chapter-link:hover .chapter-title{color:var(--green)}
 .chapter-link:hover .chapter-arrow,.chapter-link:focus-visible .chapter-arrow{opacity:1;transform:translateX(3px)}
-.site-footer{display:flex;justify-content:space-between;gap:24px;padding:26px 4.2vw 32px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
-.site-footer a:hover{color:var(--green)}
 .course-home .no-script{position:relative;z-index:11;left:auto;right:auto;bottom:auto;max-width:none;margin:0;padding:22px 4.2vw;background:#fafaf7;color:#20352f;border:0}
 .course-home .no-script a{text-decoration:underline}
 @media(max-width:1100px){.chapter-list{column-gap:25px}.chapter-title{font-size:16px}}
-@media(max-width:760px){.course-inner{padding:48px 25px}.section-heading{margin-bottom:25px}.section-heading h2{font-size:33px}.course-eyebrow{font-size:10px}.chapter-list{grid-template-columns:1fr}.chapter-link{min-height:0;padding:19px 0}.chapter-title{font-size:17px}.chapter-arrow{opacity:1}.site-footer{padding:23px 25px;flex-direction:column;gap:12px}.site-footer>span{font-weight:650}}
+@media(max-width:760px){.course-inner{padding:48px 25px}.chapter-list{grid-template-columns:1fr}.chapter-link{min-height:0;padding:19px 0}.chapter-title{font-size:17px}.chapter-arrow{opacity:1}}
 
 /* ── Still image when WebGL is unavailable ───────────────────────────────── */
 .campus-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fafaf7}

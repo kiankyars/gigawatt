@@ -26,11 +26,7 @@ Object.assign(byId.overview, {
   lead: 'Explore the power, computing and cooling systems that make AI possible.',
   enter: 'Explore the data center',
   linksTitle: 'Start the course',
-  links: [
-    deck('primer', `Start with ${presentationLabels.primer}`),
-    deck('overview'),
-    { label: 'All chapters', href: '#chapters' },
-  ],
+  links: [deck('primer')],
 });
 const related = {
   power: ['distribution', 'continuity'],
