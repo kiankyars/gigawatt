@@ -77,16 +77,16 @@ const settle=page=>page.waitForFunction(()=>window.datacenter?.isSettled(),null,
   await mobile.locator('#chapter-nav [data-chapter="2"]').tap();await stopIs(mobile,3);await settle(mobile);
   const copy=await mobile.locator('#chapter-copy').boundingBox();
   assert.ok(copy.y>=0&&copy.y+copy.height<=size.height+1,`copy fits the phone at ${size.width}`);
-  await mobile.screenshot({path:`${out}/phone-compute-${size.width}.png`});
+  await mobile.waitForTimeout(600);await mobile.screenshot({path:`${out}/phone-compute-${size.width}.png`});
   const label=mobile.locator('#hotspots .hotspot:not([hidden])').first();await label.waitFor();
   await label.tap();await mobile.locator('#equipment-dialog[open]').waitFor();await settle(mobile);
   const sheet=await mobile.locator('#equipment-dialog').boundingBox();
   if(size.width<size.height)assert.ok(sheet.y>size.height*0.4,`the equipment sheet leaves the model visible: ${JSON.stringify(sheet)}`);
-  await mobile.screenshot({path:`${out}/phone-equipment-${size.width}.png`});
+  await mobile.waitForTimeout(600);await mobile.screenshot({path:`${out}/phone-equipment-${size.width}.png`});
   await mobile.locator('#equipment-dialog .close-dialog').tap();
   await mobile.locator('.site-header nav a').tap();await mobile.waitForFunction(()=>document.body.classList.contains('past-journey'));
   await mobile.locator('#chapters .chapter-link').first().waitFor();
-  await mobile.screenshot({path:`${out}/phone-directory-${size.width}.png`});
+  await mobile.waitForTimeout(600);await mobile.screenshot({path:`${out}/phone-directory-${size.width}.png`});
   await phone.close();
  }
  // All chapters keep their current scene-aware reading links and return home.
